@@ -1,20 +1,59 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
-export default function App() {
+// import * as React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+
+const TextBar = () => {
+  const [text, onChangeTextBar] = React.useState('Search Restaurants');
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <TextInput
+        style={styles.textBar}
+        onChangeText={onChangeTextBar}
+        value={text}
+      />
+     
     </View>
   );
-}
+};
+  export default function App() {
+    return (
+      <View>
+        <Text style={styles.header}>Find a restaurant that is woof worthy</Text>
+        {/* <SearchBar
+          placeholder="Type Here..."
+          onChangeText={updateSearch}
+          value={search}
+        /> */}
+       <TextBar />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+        <Image source={require('./images/dog-banner.jpeg')}
+          style={{ width: '100%', height: '77%' }} />
+
+
+      </View>
+      // <NavigationContainer>{}</NavigationContainer>
+    );
+  }
+
+  const styles = StyleSheet.create({
+    header: {
+      fontSize: 40,
+      padding: 20,
+      backgroundColor: '#b0cadb'
+    },
+    textBar: {
+      height: 60,
+      padding: 10,
+      fontFamily: 'Roboto'
+    },
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
