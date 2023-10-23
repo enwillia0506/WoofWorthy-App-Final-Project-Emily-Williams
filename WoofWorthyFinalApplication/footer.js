@@ -18,9 +18,10 @@ const styles = StyleSheet.create({
       padding: 5,
       paddingLeft: 15,
       backgroundColor: 'lightgrey',
-      position: 'absolute',
-      left: 0,
-      top: '95%'
+    //   position: 'absolute',
+    //   left: 0,
+    //   top: '95%',
+    //   height: 60
       
     },
     footerText: {
