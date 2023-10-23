@@ -1,9 +1,11 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+// import { Card } from '@rneui/themed';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {} from './yelp'
+import Footer from './footer';
+
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
@@ -13,75 +15,75 @@ export default function App() {
       <NavigationContainer>
         <Tabs.Navigator>
           <Tabs.Screen name="Home" component={HomeScreen} />
-          <Tabs.Screen name="Restaurants" component={Card} />
+          <Tabs.Screen name="Restaurants" component={Results} />
         </Tabs.Navigator>
       </NavigationContainer>
-      
-      {/* <SearchBar
-          placeholder="Type Here..."
-          onChangeText={updateSearch}
-          value={search}
-        /> */}
-      {/* <TextBar /> */}
-
-      
     </View>
   )
 }
 
-let axiosArray = [];
 
-async function getRandom() {
-    const urlString = "https://api.yelp.com/v3/businesses";
-
-    const response = await axios.get(urlString);
-
-    let activity = response.data.message;
-    console.log(activity);
-    let activities = { activity }
-
-    axiosArray.push(activity);
-
-    for (let value of axiosArray) {
-        axiosArray.push(activity);
-        axiosArray.push(activity);
-        console.log('for loop value =', value);
-        break;
-    }
-   
-    console.log('array values =', axiosArray);
-
-    console.log('keys', Object.keys(activities));
-    console.log('values', Object.values(activities))
-
-    return activity;
-}
-
-const rand_activity = await getRandom();
-
-console.log('rand_activity =', rand_activity);
 
 function HomeScreen() {
   return (
     <View>
-      <Text style={styles.header}>Find a restaurant that is woof worthy</Text>
-      {/* <SearchBar
-          placeholder="Type Here..."
-          onChangeText={updateSearch}
-          value={search}
-        /> */}
-      <TextBar />
+      <ScrollView>
 
-      <Image source={require('./images/dog-banner.jpeg')}
-         style={{width: '100%', height: '77%'}}/>
 
+        <Text style={styles.header}>Find a restaurant that is woof worthy</Text>
+
+        {/* <TextBar /> */}
+
+
+        <Image source={require('./images/dog-banner.jpg')}
+          style={{ width: '100%' }} />
+          <Card>
+          <Card.Title>HELLO WORLD</Card.Title>
+          <Card.Divider />
+          <Card.Image
+            style={{ padding: 0 }}
+            source={{
+              uri:
+                'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg',
+            }}
+          />
+          <Text style={{ marginBottom: 10 }}>
+            The idea with React Native Elements is more about component
+            structure than actual design.
+          </Text>
+          <Button
+            icon={
+              <Icon
+                name="code"
+                color="#ffffff"
+                iconStyle={{ marginRight: 10 }}
+              />
+            }
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+            }}
+            title="VIEW NOW"
+          />
+        </Card>
+
+        
+
+
+        <Footer />
+
+      </ScrollView>
 
     </View>
-    
+
+
+
   );
 };
 
-function Card() {
+function Results() {
   return (
     <View>
       <Text>Hello</Text>
@@ -102,6 +104,8 @@ function TextBar() {
     </View>
   );
 };
+
+
 const styles = StyleSheet.create({
   header: {
     fontSize: 40,
@@ -114,9 +118,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
   },
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     height: '100%'
-   
+
   },
 });
