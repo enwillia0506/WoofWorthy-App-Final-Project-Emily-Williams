@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 export default function Footer() {
     return (
         <View style={styles.footer}>
-            <Image source={require('./images/logo.png')}
+            <Image source={require('./images/poke-logo.png')}
           style={{ width: 80, height: 120 }} />
-            <Text style={styles.footerText}>Copyright &copy; 2023 WoofWorthy App.</Text>
+            <Text style={styles.footerText}>Copyright &copy; 2023 World of Pokemon App.</Text>
             <Text style={styles.footerText}>Design and code by Emily Williams</Text>
         </View>
     )
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       padding: 5,
       paddingLeft: 15,
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#fdeec5',
     //   position: 'absolute',
     //   left: 0,
     //   top: '95%',
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'center',
         textAlign: 'center',
-        
     }
     
   });

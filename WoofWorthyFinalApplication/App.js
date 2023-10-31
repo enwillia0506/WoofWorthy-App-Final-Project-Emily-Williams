@@ -10,6 +10,9 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Footer from './footer';
+import { useState, useEffect } from 'react';
+
+import FindPoke from './poke-api';
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
@@ -19,7 +22,7 @@ export default function App() {
       <NavigationContainer>
         <Tabs.Navigator>
           <Tabs.Screen name="Home" component={HomeScreen} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
-          <Tabs.Screen name="Restaurants" component={Results} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
+          <Tabs.Screen name="Pokemon" component={Results} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
         </Tabs.Navigator>
       </NavigationContainer>
     </View>
@@ -31,23 +34,24 @@ function HomeScreen({ navigation }) {
   return (
     <View>
       <ScrollView>
-        <Text style={styles.header}>Find a restaurant that is woof worthy</Text>
-        <Text style={styles.subHeader}>Looking for that perfect restaurant to go to with your perfect pup?
+        <Text style={styles.header}>The world is your pokemon</Text>
+        <Text style={styles.subHeader}>Find your pokemon stats quick and easy in one central location!
         </Text>
 
-        <Image source={require('./images/dog-banner.jpg')}
+        <Image source={require('./images/eevee-banner.jpeg')}
           style={{ width: '100%' }} />
 
         <Text style={styles.paragraph}>
-          See suggested restaurants below or use the navigation to view all restaurants!</Text>
+          Find your favorite pokemon and click on the card to view full stats!</Text>
 
-        <View style={{margin: 10}}>
+        {/* <View style={{margin: 10}}>
           <Button title="View all restaurants" color="#85a2b5" onPress={() => {
             navigation.navigate("Restaurants")
           }} />
-        </View>
+        </View> */}
 
         <CardComponent />
+        <FindPoke />
 
         <Footer />
       </ScrollView>
@@ -58,9 +62,9 @@ function HomeScreen({ navigation }) {
 function HeaderLogo() {
   return (
     <View style={styles.logo}>
-      <Image source={require('./images/logo-2.png')}
-        style={{ width: 50, height: 50, resizeMode: 'center' }} />
-      <Text style={{ fontSize: 20, padding: 10 }}>WoofWorthy</Text>
+      <Image source={require('./images/poke-logo.png')}
+        style={{ width: 40, height: 40, resizeMode: 'center' }} />
+      <Text style={{ fontSize: 20, padding: 10 }}>World of Pokemon</Text>
     </View>
   )
 }
@@ -69,20 +73,20 @@ function CardComponent() {
   return (
     <View>
       <Card>
-        <Card.Title>Smokeworks</Card.Title>
+        <Card.Title>Eevee</Card.Title>
 
         <Card.Image
           style={{ height: 210 }}
           source={{
             uri:
-              'https://s3-media1.fl.yelpcdn.com/bphoto/gyy1F0qbPrsjLeSjh9Wsyw/o.jpg',
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
           }}
         />
         <Text style={{ margin: 10 }}>
-          Bloomington, IN
+          pokemon
         </Text>
         <Button
-          title="View restaurant details" color="#85a2b5"
+          title="View full stats" color="#85a2b5"
         />
       </Card>
     </View>
@@ -93,24 +97,29 @@ function Results({ navigation }) {
 
   return (
     <View>
-      <Text>This will be restaurant results</Text>
+      <Text>This will be pokemon results</Text>
       <Button title="Go back" color="#85a2b5" onPress={() => navigation.goBack()} />
     </View>
   )
 }
 
 
+
+
+
+
+
 const styles = StyleSheet.create({
   header: {
     fontSize: 40,
     padding: 20,
-    backgroundColor: '#b0cadb'
+    backgroundColor: '#fdeec5'
   },
   subHeader: {
     fontSize: 20,
     padding: 20,
     paddingTop: 0,
-    backgroundColor: '#b0cadb'
+    backgroundColor: '#fdeec5'
   },
   paragraph: {
     fontSize: 15,
