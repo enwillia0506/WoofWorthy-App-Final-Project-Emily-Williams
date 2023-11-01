@@ -38,8 +38,8 @@ function HomeScreen({ navigation }) {
         <Text style={styles.subHeader}>Find your pokemon stats quick and easy in one central location!
         </Text>
 
-        <Image source={require('./images/eevee-banner.jpeg')}
-          style={{ width: '100%' }} />
+        <Image source={require('./images/eevee-banner.jpg')}
+          style={{ width: '100%'}} />
 
         <Text style={styles.paragraph}>
           Find your favorite pokemon and click on the card to view full stats!</Text>
@@ -50,11 +50,12 @@ function HomeScreen({ navigation }) {
           }} />
         </View> */}
 
-        <CardComponent />
+        {/* <CardComponent /> */}
         <FindPoke />
 
         <Footer />
       </ScrollView>
+      
     </View>
   );
 };
@@ -69,29 +70,51 @@ function HeaderLogo() {
   )
 }
 
-function CardComponent() {
-  return (
-    <View>
-      <Card>
-        <Card.Title>Eevee</Card.Title>
+// function CardComponent() {
+  
 
-        <Card.Image
-          style={{ height: 210 }}
-          source={{
-            uri:
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
-          }}
-        />
-        <Text style={{ margin: 10 }}>
-          pokemon
-        </Text>
-        <Button
-          title="View full stats" color="#85a2b5"
-        />
-      </Card>
-    </View>
-  )
-}
+//   const [eeveeName, setEeveeName] = useState([]);
+//   const [eeveeHeight, setEeeveeHeight] = useState([]);
+//   const [eeveeExperience, setEeveeExperience] = useState([]);
+//   const [eeveeWeight, setEeveeWeight] = useState([]);
+
+//   const name = ['pikachu', 'eevee', 'bulbasaur']
+//   const baseURL = 'https://pokeapi.co/api/v2/pokemon/'
+
+//   const getPokeSpecies = async () => {
+//     const eevee = await fetch(`${baseURL}/${name[1]}`).then(
+//       (response) => response.json());
+
+//     ///eevee stats 
+//     setEeveeName(eevee.name);
+//     setEeeveeHeight(eevee.height);
+//     setEeveeExperience(eevee.base_experience);
+//     setEeveeWeight(eevee.weight)
+
+//   return (
+//     <View>
+//       {/* <Card>
+//         <Card.Title></Card.Title>
+
+//         <Card.Image
+//           style={{ height: 210 }}
+//           source={{
+//             uri:
+//               'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
+//           }}
+//         />
+//         <Text style={{ margin: 10 }}>Height: {eeveeHeight}</Text>
+//         <Text style={{ margin: 10 }}>Weight: {eeveeWeight}</Text>
+//         <Text style={{ margin: 10 }}>Base experience: {eeveeExperience}</Text>
+//         <Button
+//           title="View full stats" color="#85a2b5"
+//         />
+
+//       </Card> */}
+//     </View>
+//   )
+//     }
+// }
 
 function Results({ navigation }) {
 
@@ -102,11 +125,6 @@ function Results({ navigation }) {
     </View>
   )
 }
-
-
-
-
-
 
 
 const styles = StyleSheet.create({
@@ -122,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fdeec5'
   },
   paragraph: {
-    fontSize: 15,
+    fontSize: 20,
     padding: 10
   },
   logo: {
