@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
       padding: 5,
       paddingLeft: 15,
       backgroundColor: '#fdeec5',
-    //   position: 'absolute',
-    //   left: 0,
-    //   top: '95%',
-    //   height: 60
       
     },
     footerText: {
@@ -30,6 +26,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
     }
-    
   });
   

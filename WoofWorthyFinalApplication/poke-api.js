@@ -1,104 +1,77 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button, Icon, FlatList,  } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button, Icon, FlatList, Modal } from 'react-native';
 
 import { Card } from '@rneui/themed';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { createStackNavigator } from '@react-navigation/stack';
-import FindEevee from './eevee-details';
-
-
-function navStack() {
-    const Stack = createStackNavigator();
-    
-
-  return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="eevee" component={FindEevee} />
-        </Stack.Navigator>
-      </NavigationContainer>
-  );
-}
-
-navStack()
 
 
 export default function FindPoke() {
   const navigation = useNavigation();
-  
-  // const [isLoading, setIsLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const [pikachuName, setPikachuName] = useState([]);
-  const [pikachuHeight, setPikachuHeight] = useState([]);
-  const [pikachuExperience, setPikachuExperience] = useState([]);
-  const [pikachuWeight, setPikachuWeight] = useState([]);
 
-  // const [{pikachuName, pikachuHeight, pikachuExperience, pikachuWeight}, setState] = useState([]);
-
-  const [eeveeName, setEeveeName] = useState([]);
-  const [eeveeHeight, setEeeveeHeight] = useState([]);
-  const [eeveeExperience, setEeveeExperience] = useState([]);
-  const [eeveeWeight, setEeveeWeight] = useState([]);
-
-  const [bulbaName, setBulbaName] = useState([]);
-  const [bulbaHeight, setBulbaHeight] = useState([]);
-  const [bulbaExperience, setBulbaExperience] = useState([]);
-  const [bulbaWeight, setBulbaWeight] = useState([]);
-
-  const name = ['pikachu', 'eevee', 'bulbasaur']
-
-  const baseURL = 'https://pokeapi.co/api/v2/pokemon'
-
-  const getPokeSpecies = async () => {
-    const pikachu = await fetch(`${baseURL}/${name[0]}`).then(
-      (response) => response.json());
-
-    const eevee = await fetch(`${baseURL}/${name[1]}`).then(
-      (response) => response.json());
-
-    const bulbasaur = await fetch(`${baseURL}/${name[2]}`).then(
-      (response) => response.json());
-
-    ///eevee stats 
-    setEeveeName(eevee.results);
-    setEeeveeHeight(eevee.height);
-    setEeveeExperience(eevee.base_experience);
-    setEeveeWeight(eevee.weight)
-
-    ///pikachu stats
-    setPikachuName(pikachu.name);
-    setPikachuHeight(pikachu.height);
-    setPikachuExperience(pikachu.base_experience);
-    setPikachuWeight(pikachu.weight)
-
-    ///bulbasaur stats
-    setBulbaName(bulbasaur.name);
-    setBulbaHeight(bulbasaur.height);
-    setBulbaExperience(bulbasaur.base_experience);
-    setBulbaWeight(bulbasaur.weight)
-  };
+  const [pokemon, setPokemon] = useState({ pikachu: [], eevee: [], bulbasaur: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getPokeSpecies();
+    const pokemonNames = ['pikachu', 'eevee', 'bulbasaur'];
+    const fetchPokemonData = async () => {
+      try {
+        setLoading(true);
+        // const response = await Promise.all (
+        // //   pokemonNames.map(name => fetch(`https://pokeapi.co/api/v2/pokemon/${name}`))
+
+        // );
+        const response = {
+          pikachu: await fetch(`https://pokeapi.co/api/v2/pokemon/eevee`).then(
+            (response) => response.json()),
+
+          eevee: await fetch(`https://pokeapi.co/api/v2/pokemon/pikachu`).then(
+            (response) => response.json()),
+
+          bulbasaur: await fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`).then(
+            (response) => response.json())
+        }
+
+        setPokemon({
+          pikachu: response[0],
+          eevee: response[1],
+          bulbasaur: response[2]
+        })
+
+        console.log(response.pikachu.height);
+
+        // console.log(JSON.stringify(response))
+      } catch (err) {
+        setError(err);
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPokemonData();
   }, []);
 
-  // const renderItem = ({ item }) => {
-
-  //   return ( 
-  //     <Card>
-  //       <CardTitle>
-  //         {item}
-  //       </CardTitle>
-  //     </Card>
-  //   )
-  // }
 
   return (
     <View>
+      {/* <View>
+        <FlatList
+          data={pokemon}
+          keyExtractor={(pikachu => pikachu.name)} // make sure item is used and not other for pokemon name data
+          renderItem={({ pikachu }) => (
+            <Card>
+              <CardTitle>{pikachu.name}</CardTitle>
+            </Card>
+          )}
+        />
+      </View> */}
+
+      <Text>Test</Text>
 
       <Card>
-        <Card.Title>Name: {eeveeName}</Card.Title>
+        <Card.Title>Name: Eevee</Card.Title>
 
         <Card.Image
           style={styles.img}
@@ -108,66 +81,37 @@ export default function FindPoke() {
           }}
         />
 
-        <Text style={styles.card}>Height: {eeveeHeight}</Text>
-        <Text style={styles.card}>Weight: {eeveeWeight}</Text>
-        <Text style={styles.card}>Base experience: {eeveeExperience}</Text>
+        <Text style={styles.card}>Height: </Text>
+        <Text style={styles.card}>Weight: </Text>
+        <Text style={styles.card}>Base experience: </Text>
 
-        <Button
-          title="View full stats" color="#85a2b5" onPress={() => {
-            navigation.navigate("eevee")
-          }}
-        />
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Additional Eevee details will be here!</Text>
+                <Button
+                  title='Hide Eevee stats'
+                  onPress={() => setModalVisible(!modalVisible)}>
+                </Button>
+              </View>
+            </View>
+
+          </Modal>
+          <Button
+            title='Show Eevee Stats'
+            onPress={() => setModalVisible(true)}>
+          </Button>
+        </View>
+
       </Card>
-
-      
-      <Card>
-
-        <Card.Title>Name: {pikachuName}</Card.Title>
-
-        <Card.Image
-          style={styles.img}
-          source={{
-            uri:
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
-          }}
-        />
-
-        <Text style={styles.card}>Height: {pikachuHeight}</Text>
-        <Text style={styles.card}>Weight: {pikachuWeight}</Text>
-        <Text style={styles.card}>Base experience: {pikachuExperience}</Text>
-
-        <Button
-          title="View full stats" color="#85a2b5"
-        />
-      </Card>
-
-      <Card>
-        <Card.Title>Name: {bulbaName}</Card.Title>
-
-        <Card.Image
-          style={styles.img}
-          source={{
-            uri:
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
-          }}
-        />
-
-        <Text style={styles.card}>Height: {bulbaHeight}</Text>
-        <Text style={styles.card}>Weight: {bulbaWeight}</Text>
-        <Text style={styles.card}>Base experience: {bulbaExperience}</Text>
-
-        <Button
-          title="View full stats" color="#85a2b5"
-        />
-      </Card>
-
-    {/* {eevee && (
-             <FlatList
-               eevee={eevee}
-               renderItem={renderItem}
-               keyExtractor={(item) => item.id.toString()}
-             />
-          )} */}
     </View>
   );
 }
@@ -180,135 +124,31 @@ const styles = StyleSheet.create({
   card: {
     margin: 5,
     fontSize: 15
-  }
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 });
-
-
-// export default FindPoke;
-
-// function PokeArray() {
-//   const baseURL = 'https://pokeapi.co/api/v2/pokemon?limit=10&offset=0'
-
-//   let pokemonArray = [];
-
-//   const getPokeSpecies = async () => {
-//     const pokemon = await fetch(`${baseURL}`).then(
-//       (response) => response.json());
-
-//     let findResults = pokemon.results;
-
-//     let findPokes = { findResults };
-
-//     pokemonArray.push(findResults);
-
-//     for (let value of pokemonArray) {
-//       pokemonArray.push(findResults);
-//       console.log('for loop value =', value);
-//       break;
-//     }
-
-//     console.log(pokemonArray);
-//     // console.log('keys', Object.keys(findPokes));
-//     console.log('values', Object.values(findPokes))
-//   };
-
-//   useEffect(() => {
-//     getPokeSpecies();
-//   }, []);
-
-//   return (
-//     <View>
-//       <Card>
-//         <Card.Title>Name: {pokemonArray}</Card.Title>
-
-//         <Card.Image
-//           style={styles.img}
-//           source={{
-//             uri:
-//               'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
-//           }}
-//         />
-
-//         {/* <Text style={styles.card}>Height: {eeveeHeight}</Text>
-//         <Text style={styles.card}>Weight: {eeveeWeight}</Text>
-//         <Text style={styles.card}>Base experience: {eeveeExperience}</Text> */}
-
-//         <Button
-//           title="View full stats" color="#85a2b5"
-//         />
-//       </Card>
-//     </View>
-//   )
-// }
-
-// getPokeSpecies();
-
-
-
-// import axios from "axios";
-// import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
-// let axiosArray = [];
-
-// async function getPoke() {
-//   const urlString = `https://pokeapi.co/api/v2/pokemon-species/`
-
-//   const response = await axios.get(urlString);
-
-//   let pokeName = response.data.results;
-
-  // console.log(pokeName);
-  // let pokeNames = { pokeName };
-
-  // axiosArray.push(pokeName);
-
-  // for (let value of axiosArray) {
-  //   axiosArray.push(pokeName);
-  //   // console.log('for loop value =', value);
-  //   break;
-  // }
-
-  // console.log('array values =', axiosArray);
-
-  // console.log('keys', Object.keys(pokeNames));
-  // console.log('values', Object.values(pokeNames))
-
-//   return pokeName;
-
-// }
-
-// const pokemons = await getPoke();
-
-// console.log('the pokemon =', pokemons);
-
-
-
-// function FindPoke({ navigation }) {
-//   const nav = useNavigation();
-//   const [isLoading, setIsLoading] = useState(true);
-//   const [pokeSpecies, setPokeSpecies] = useState('Placeholder');
-
-//   const [count, setCount] = useState(0)
-
-//   const getPokeSpecies = async () => {
-//     const poke = await fetch('https://pokeapi.co/api/v2/pokemon-species/').then(
-//       (response) => response.json());
-
-//     setPokeSpecies(poke);
-//   };
-
-//   useEffect(() => {
-//     getPokeSpecies();
-//   }, []);
-
-//   return (
-//     <View>
-//       <View>
-//         <Text>Joke category: {pokeSpecies}</Text>
-//         <Text>Cities of the day</Text>
-//       </View>
-//     </View>
-//   );
-// }
-
 

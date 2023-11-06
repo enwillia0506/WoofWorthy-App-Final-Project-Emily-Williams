@@ -11,8 +11,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Footer from './footer';
 import { useState, useEffect } from 'react';
+import { Feather } from '@expo/vector-icons'
 
 import FindPoke from './poke-api';
+
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
@@ -29,7 +31,6 @@ export default function App() {
   )
 }
 
-
 function HomeScreen({ navigation }) {
   return (
     <View>
@@ -39,23 +40,16 @@ function HomeScreen({ navigation }) {
         </Text>
 
         <Image source={require('./images/eevee-banner.jpg')}
-          style={{ width: '100%'}} />
+          style={{ width: '100%' }} />
 
         <Text style={styles.paragraph}>
           Find your favorite pokemon and click on the card to view full stats!</Text>
 
-        {/* <View style={{margin: 10}}>
-          <Button title="View all restaurants" color="#85a2b5" onPress={() => {
-            navigation.navigate("Restaurants")
-          }} />
-        </View> */}
-
-        {/* <CardComponent /> */}
         <FindPoke />
 
         <Footer />
       </ScrollView>
-      
+
     </View>
   );
 };
@@ -69,52 +63,6 @@ function HeaderLogo() {
     </View>
   )
 }
-
-// function CardComponent() {
-  
-
-//   const [eeveeName, setEeveeName] = useState([]);
-//   const [eeveeHeight, setEeeveeHeight] = useState([]);
-//   const [eeveeExperience, setEeveeExperience] = useState([]);
-//   const [eeveeWeight, setEeveeWeight] = useState([]);
-
-//   const name = ['pikachu', 'eevee', 'bulbasaur']
-//   const baseURL = 'https://pokeapi.co/api/v2/pokemon/'
-
-//   const getPokeSpecies = async () => {
-//     const eevee = await fetch(`${baseURL}/${name[1]}`).then(
-//       (response) => response.json());
-
-//     ///eevee stats 
-//     setEeveeName(eevee.name);
-//     setEeeveeHeight(eevee.height);
-//     setEeveeExperience(eevee.base_experience);
-//     setEeveeWeight(eevee.weight)
-
-//   return (
-//     <View>
-//       {/* <Card>
-//         <Card.Title></Card.Title>
-
-//         <Card.Image
-//           style={{ height: 210 }}
-//           source={{
-//             uri:
-//               'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
-//           }}
-//         />
-//         <Text style={{ margin: 10 }}>Height: {eeveeHeight}</Text>
-//         <Text style={{ margin: 10 }}>Weight: {eeveeWeight}</Text>
-//         <Text style={{ margin: 10 }}>Base experience: {eeveeExperience}</Text>
-//         <Button
-//           title="View full stats" color="#85a2b5"
-//         />
-
-//       </Card> */}
-//     </View>
-//   )
-//     }
-// }
 
 function Results({ navigation }) {
 
