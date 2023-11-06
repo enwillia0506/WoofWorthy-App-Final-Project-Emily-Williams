@@ -10,39 +10,21 @@ export default function FindPoke() {
   const [modalVisible, setModalVisible] = useState(false);
 
 
-  const [pokemon, setPokemon] = useState({ pikachu: [], eevee: [], bulbasaur: [] });
+  const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const pokemonNames = ['pikachu', 'eevee', 'bulbasaur'];
+    const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle'];
     const fetchPokemonData = async () => {
       try {
         setLoading(true);
-        // const response = await Promise.all (
-        // //   pokemonNames.map(name => fetch(`https://pokeapi.co/api/v2/pokemon/${name}`))
+        const responses = await Promise.all(
+          pokemonNames.map(name => fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then(res => res.json()))
+        );
 
-        // );
-        const response = {
-          pikachu: await fetch(`https://pokeapi.co/api/v2/pokemon/eevee`).then(
-            (response) => response.json()),
-
-          eevee: await fetch(`https://pokeapi.co/api/v2/pokemon/pikachu`).then(
-            (response) => response.json()),
-
-          bulbasaur: await fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`).then(
-            (response) => response.json())
-        }
-
-        setPokemon({
-          pikachu: response[0],
-          eevee: response[1],
-          bulbasaur: response[2]
-        })
-
-        console.log(response.pikachu.height);
-
-        // console.log(JSON.stringify(response))
+        // Set the state with the fetched data
+        setPokemon(responses);
       } catch (err) {
         setError(err);
         console.log(err);
@@ -53,26 +35,27 @@ export default function FindPoke() {
     fetchPokemonData();
   }, []);
 
-
   return (
     <View>
-      {/* <View>
+      <View>
+        {/* Card Component code from react native elements 
+      https://reactnativeelements.com/docs/components/card */}
+
         <FlatList
           data={pokemon}
-          keyExtractor={(pikachu => pikachu.name)} // make sure item is used and not other for pokemon name data
-          renderItem={({ pikachu }) => (
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => ( // use "item" here, not "pikachu"
             <Card>
-              <CardTitle>{pikachu.name}</CardTitle>
+              <Card.Title>{item.name}</Card.Title>
+              <Text style={styles.card}>Height: {item.height}</Text>
+              <Text style={styles.card}>Weight: {item.weight}</Text>
+              <Text style={styles.card}>Base experience: {item.base_experience}</Text>
+              
             </Card>
           )}
         />
-      </View> */}
+      </View>
 
-      <Text>Test</Text>
-
-      {/* Card Component code from react native elements 
-      https://reactnativeelements.com/docs/components/card */}
-      
       <Card>
         <Card.Title>Name: Eevee</Card.Title>
 

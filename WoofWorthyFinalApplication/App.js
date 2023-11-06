@@ -34,7 +34,7 @@ export default function App() {
 
 function HomeScreen({ navigation }) {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <Text style={styles.header}>The world is your pokemon</Text>
         <Text style={styles.subHeader}>Find your pokemon stats quick and easy in one central location!
@@ -45,11 +45,10 @@ function HomeScreen({ navigation }) {
 
         <Text style={styles.paragraph}>
           Find your favorite pokemon and click on the card to view full stats!</Text>
-
-        <FindPoke />
-
+          <FindPoke />
         <Footer />
       </ScrollView>
+      
 
     </View>
   );
