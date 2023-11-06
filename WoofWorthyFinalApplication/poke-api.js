@@ -70,6 +70,9 @@ export default function FindPoke() {
 
       <Text>Test</Text>
 
+      {/* Card Component code from react native elements 
+      https://reactnativeelements.com/docs/components/card */}
+      
       <Card>
         <Card.Title>Name: Eevee</Card.Title>
 
@@ -84,6 +87,9 @@ export default function FindPoke() {
         <Text style={styles.card}>Height: </Text>
         <Text style={styles.card}>Weight: </Text>
         <Text style={styles.card}>Base experience: </Text>
+
+        {/* Modal Component from React Native example 
+        https://reactnative.dev/docs/modal */}
 
         <View style={styles.centeredView}>
           <Modal

@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons'
 
 import FindPoke from './poke-api';
+//api data from https://pokeapi.co/
 
 
 export default function App() {
