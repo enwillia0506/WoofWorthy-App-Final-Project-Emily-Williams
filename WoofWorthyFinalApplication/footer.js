@@ -4,8 +4,8 @@ export default function Footer() {
     return (
         <View style={styles.footer}>
             <Image source={require('./images/poke-logo.png')}
-          style={{ width: 80, height: 120 }} />
-            <Text style={styles.footerText}>Copyright &copy; 2023 World of Pokemon App.</Text>
+          style={{ width: 80, height: 60 }} />
+            <Text style={styles.footerText}>Copyright &copy; 2023 World of Pokemon.</Text>
             <Text style={styles.footerText}>Design and code by Emily Williams</Text>
         </View>
     )

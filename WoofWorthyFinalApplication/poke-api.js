@@ -1,8 +1,9 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button, Icon, FlatList, Modal } from 'react-native';
 
 import { Card } from '@rneui/themed';
+import Footer from './footer';
 
 
 export default function FindPoke() {
@@ -15,7 +16,9 @@ export default function FindPoke() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle'];
+    // const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle', 'raichu'];
+    //using pokemon id numbers instead of names so array isnt so long
+    const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '58', '77', '104', '116', '134', '135', '136', '143'];
     const fetchPokemonData = async () => {
       try {
         setLoading(true);
@@ -36,45 +39,40 @@ export default function FindPoke() {
   }, []);
 
   return (
-    <View>
-      <View>
+    <View style={{ flex: 1, flexGrow: 1 }}>
+      <Text style={styles.paragraph}>View all Pokemon below!</Text>
+      <Button title="Go back home" color="#38a0bd" onPress={() => navigation.goBack()} />
+
+      <View style={{ flex: 1, flexGrow: 1, marginBottom: 10 }}>
         {/* Card Component code from react native elements 
       https://reactnativeelements.com/docs/components/card */}
 
         <FlatList
           data={pokemon}
           keyExtractor={(item) => item.name}
-          renderItem={({ item }) => ( // use "item" here, not "pikachu"
+          renderItem={({ item }) => (
             <Card>
               <Card.Title>{item.name}</Card.Title>
+              <Card.Image
+                style={{  height: 300, resizeMode: 'stretch' }}
+                source={{
+                  uri:`${item.sprites.other.home.front_default}` 
+                }}
+              />
               <Text style={styles.card}>Height: {item.height}</Text>
               <Text style={styles.card}>Weight: {item.weight}</Text>
               <Text style={styles.card}>Base experience: {item.base_experience}</Text>
-              
+
             </Card>
           )}
         />
       </View>
+      <Footer />
 
-      <Card>
-        <Card.Title>Name: Eevee</Card.Title>
-
-        <Card.Image
-          style={styles.img}
-          source={{
-            uri:
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
-          }}
-        />
-
-        <Text style={styles.card}>Height: </Text>
-        <Text style={styles.card}>Weight: </Text>
-        <Text style={styles.card}>Base experience: </Text>
-
-        {/* Modal Component from React Native example 
+      {/* Modal Component from React Native example 
         https://reactnative.dev/docs/modal */}
 
-        <View style={styles.centeredView}>
+      {/* <View style={styles.centeredView}>
           <Modal
             animationType="slide"
             transparent={true}
@@ -100,7 +98,7 @@ export default function FindPoke() {
           </Button>
         </View>
 
-      </Card>
+      </Card> */}
     </View>
   );
 }
@@ -114,12 +112,18 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 15
   },
+  paragraph: {
+    fontSize: 25,
+    padding: 10,
+    textAlign: 'center'
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
   },
+  //modal styling from modal component sample code cited above
   modalView: {
     margin: 20,
     backgroundColor: 'white',
