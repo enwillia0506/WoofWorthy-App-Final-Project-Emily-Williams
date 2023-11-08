@@ -4,11 +4,24 @@ import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button, Icon, Fla
 
 import { Card } from '@rneui/themed';
 import Footer from './footer';
+import { createStackNavigator } from '@react-navigation/stack';
+import Details from './details';
 
+// const Stack = createStackNavigator();
+
+// function MyStack() {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="Details" component={Details} />
+//     </Stack.Navigator>
+//   );
+// }
 
 export default function FindPoke() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [showModalData, setShowModalData] = useState(null);
+  const [buttonClicked, setButtonClicked] = useState();
 
 
   const [pokemon, setPokemon] = useState([]);
@@ -39,6 +52,7 @@ export default function FindPoke() {
   }, []);
 
   return (
+    
     <View style={{ flex: 1, flexGrow: 1 }}>
       <Text style={styles.paragraph}>View all Pokemon below!</Text>
       <Button title="Go back home" color="#38a0bd" onPress={() => navigation.goBack()} />
@@ -54,51 +68,65 @@ export default function FindPoke() {
             <Card>
               <Card.Title>{item.name}</Card.Title>
               <Card.Image
-                style={{  height: 300, resizeMode: 'stretch' }}
+                style={{ height: 300, resizeMode: 'stretch' }}
                 source={{
-                  uri:`${item.sprites.other.home.front_default}` 
+                  uri: `${item.sprites.other.home.front_default}`
                 }}
               />
               <Text style={styles.card}>Height: {item.height}</Text>
               <Text style={styles.card}>Weight: {item.weight}</Text>
               <Text style={styles.card}>Base experience: {item.base_experience}</Text>
 
+              {/* <Button
+                title='Show Additional Stats'
+                onPress={() => {
+                  setModalVisible(true)
+                  setShowModalData(item)
+                }}
+              >
+              </Button> */}
+              <Button
+                title="View additional stats"
+                color='#38a0bd'
+                onPress={() => {
+                  navigation.navigate('Details');
+                  setButtonClicked(item.id)
+                }}
+              />
             </Card>
           )}
         />
       </View>
+
       <Footer />
+      
 
       {/* Modal Component from React Native example 
         https://reactnative.dev/docs/modal */}
 
-      {/* <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}>
+      {/* <View> */}
+      
+      {/* <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
 
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Additional Eevee details will be here!</Text>
-                <Button
-                  title='Hide Eevee stats'
-                  onPress={() => setModalVisible(!modalVisible)}>
-                </Button>
-              </View>
+          
+            <View style={styles.modalView}>
+             <Text>Test</Text>
+              <Button
+                title='Hide Eevee stats'
+                onPress={() => setModalVisible(!modalVisible)}>
+              </Button>
             </View>
+          
 
-          </Modal>
-          <Button
-            title='Show Eevee Stats'
-            onPress={() => setModalVisible(true)}>
-          </Button>
-        </View>
+        </Modal> */}
+      {/* </View> */}
 
-      </Card> */}
     </View>
   );
 }

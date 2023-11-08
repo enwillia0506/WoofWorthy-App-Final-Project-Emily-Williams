@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //my imports
 import Footer from './footer';
 import FindPoke from './poke-api';
+import Details from './details'
 
 //api data from https://pokeapi.co/
 
@@ -20,6 +21,7 @@ export default function App() {
         <Tabs.Navigator>
           <Tabs.Screen name="Home" component={HomeScreen} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
           <Tabs.Screen name="Pokemon" component={FindPoke} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
+          <Tabs.Screen name="Details" component={Details} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
         </Tabs.Navigator>
       </NavigationContainer>
     </View>
