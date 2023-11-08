@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 //my imports
 import Footer from './footer';
@@ -13,16 +13,16 @@ import Details from './details'
 
 
 export default function App() {
-  const Tabs = createBottomTabNavigator();
+  const Stack = createStackNavigator();
 
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Tabs.Navigator>
-          <Tabs.Screen name="Home" component={HomeScreen} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
-          <Tabs.Screen name="Pokemon" component={FindPoke} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
-          <Tabs.Screen name="Details" component={Details} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
-        </Tabs.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
+          <Stack.Screen name="Pokemon" component={FindPoke} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
+          <Stack.Screen name="Details" component={Details} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
+          </Stack.Navigator>
       </NavigationContainer>
     </View>
   )
@@ -41,7 +41,7 @@ function HomeScreen() {
           style={{ width: '100%' }} />
 
         <Text style={styles.paragraph}>
-          Click here to enter the catalog of Pokemon and their stats!</Text>
+          Click here to enter the catalog of Pokemon and view their stats!</Text>
         <Button
           title="View all Pokemon"
           color= '#38a0bd'
@@ -49,7 +49,6 @@ function HomeScreen() {
             nav.navigate('Pokemon');
           }}
         />
-        {/* <FindPoke /> */}
         <Footer />
       </ScrollView>
 
@@ -71,18 +70,18 @@ function HeaderLogo() {
 const styles = StyleSheet.create({
   header: {
     fontSize: 40,
-    padding: 14,
+    padding: 20,
     backgroundColor: '#fbefc3'
   },
   subHeader: {
     fontSize: 20,
-    padding: 14,
+    padding: 20,
     paddingTop: 0,
     backgroundColor: '#fbefc3'
   },
   paragraph: {
     fontSize: 20,
-    padding: 10,
+    padding: 15,
     backgroundColor: '#fbefc3'
   },
   logo: {

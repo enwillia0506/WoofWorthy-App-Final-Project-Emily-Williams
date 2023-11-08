@@ -21,6 +21,7 @@ export default function FindPoke() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [showModalData, setShowModalData] = useState(null);
+
   const [buttonClicked, setButtonClicked] = useState();
 
 
@@ -90,7 +91,11 @@ export default function FindPoke() {
                 color='#38a0bd'
                 onPress={() => {
                   navigation.navigate('Details');
-                  setButtonClicked(item.id)
+                  return (
+                    <View>
+                      <Text>Hello</Text>
+                    </View>
+                  )
                 }}
               />
             </Card>
