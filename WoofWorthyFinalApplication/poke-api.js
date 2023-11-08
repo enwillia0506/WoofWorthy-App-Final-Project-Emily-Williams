@@ -31,7 +31,7 @@ export default function FindPoke() {
   useEffect(() => {
     // const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle', 'raichu'];
     //using pokemon id numbers instead of names so array isnt so long
-    const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '58', '77', '104', '116', '134', '135', '136', '143'];
+    const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '37', '77', '104', '116', '134', '135', '136', '143'];
     const fetchPokemonData = async () => {
       try {
         setLoading(true);

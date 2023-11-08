@@ -14,7 +14,7 @@ export default function Details() {
     useEffect(() => {
         // const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle', 'raichu'];
         //using pokemon id numbers instead of names so array isnt so long
-        const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '58', '77', '104', '116', '134', '135', '136', '143'];
+        const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '37', '77', '104', '116', '134', '135', '136', '143'];
         const fetchPokemonData = async () => {
             try {
                 setLoading(true);
@@ -57,18 +57,15 @@ export default function Details() {
                     renderItem={({ item }) => (
                         <Card>
                             <Card.Title>{item.name}</Card.Title>
-                            <Card.Image
-                                style={{ height: 300, resizeMode: 'stretch' }}
-                                source={{
-                                    uri: `${item.sprites.other.home.front_default}`
-                                }}
-                            />
+
                             <Text style={styles.card}>Height: {item.height}</Text>
-                            
+                            <Text style={styles.card}>Weight: {item.weight}</Text>
+                            <Text style={styles.card}>Base experience: {item.base_experience}</Text>
+
                         </Card>
                     )}
                 />
-                
+
             </View>
 
             <Footer />
