@@ -8,13 +8,24 @@ export default function Details() {
     const navigation = useNavigation();
 
     const [pokemon, setPokemon] = useState([]);
+
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         // const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle', 'raichu'];
         //using pokemon id numbers instead of names so array isnt so long
-        const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '37', '77', '104', '116', '134', '135', '136', '143'];
+        const pokemonNames = [];
+        function handleButtonClick(e) {
+            const target = e.target.id;
+            pokemonNames.push({target});
+          }
+        
+          handleButtonClick();
+          console.log(pokemonNames);
+        
+        
         const fetchPokemonData = async () => {
             try {
                 setLoading(true);
@@ -24,6 +35,7 @@ export default function Details() {
 
                 // Set the state with the fetched data
                 setPokemon(responses);
+                console.log(pokemon);
             } catch (err) {
                 setError(err);
                 console.log(err);
@@ -34,13 +46,17 @@ export default function Details() {
         fetchPokemonData();
     }, []);
 
-    // pokemon.map((items, index ) => {
-    //     return (
-    //         <View key={index}>
-    //             <Text>{items.abilities}</Text>
-    //         </View>
-    //     )
-    // })
+    pokemon.map((items, index ) => {
+        return (
+            <View key={index}>
+                <Text>{items.abilities}</Text>
+            </View>
+        )
+
+    })
+
+    const pokemonNames = [
+        {key: '133'}, {key: '25'}, {key: '1'}];
 
     return (
         <View style={{ flex: 1, flexGrow: 1 }}>
@@ -53,6 +69,7 @@ export default function Details() {
 
                 <FlatList
                     data={pokemon}
+                    
                     keyExtractor={(item) => item.name}
                     renderItem={({ item }) => (
                         <Card>
@@ -65,6 +82,7 @@ export default function Details() {
                         </Card>
                     )}
                 />
+
 
             </View>
 

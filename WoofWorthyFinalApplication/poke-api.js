@@ -42,15 +42,23 @@ export default function FindPoke() {
 
         // Set the state with the fetched data
         setPokemon(responses);
+        
       } catch (err) {
         setError(err);
         console.log(err);
       } finally {
         setLoading(false);
+        
       }
     };
     fetchPokemonData();
   }, []);
+
+  const pokemonNames = ['133', '25', '1', '132', '4', '7', '26', '39', '43', '50', '52', '54', '37', '77', '104', '116', '134', '135', '136', '143'];
+
+  function handleButtonClick(e) {
+    const target = e.target.id;
+  }
 
   return (
     
@@ -65,7 +73,7 @@ export default function FindPoke() {
         <FlatList
           data={pokemon}
           keyExtractor={(item) => item.name}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <Card>
               <Card.Title>{item.name}</Card.Title>
               <Card.Image
@@ -90,12 +98,10 @@ export default function FindPoke() {
                 title="View additional stats"
                 color='#38a0bd'
                 onPress={() => {
+                  // handleButtonClick(target)
                   navigation.navigate('Details');
-                  return (
-                    <View>
-                      <Text>Hello</Text>
-                    </View>
-                  )
+                  // setButtonClicked(pokemonNames)
+                  // 
                 }}
               />
             </Card>
