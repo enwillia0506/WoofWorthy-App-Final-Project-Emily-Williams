@@ -8,24 +8,16 @@ export default function Details() {
     const navigation = useNavigation();
 
     const [pokemon, setPokemon] = useState([]);
+    const [selectedPokemon, setSelectedPokemon] = useState(null);
 
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle', 'raichu'];
+        const pokemonNames = ['pikachu', 'eevee', 'bulbasaur', 'ditto', 'charmander', 'squirtle', 'raichu'];
         //using pokemon id numbers instead of names so array isnt so long
-        const pokemonNames = [];
-        function handleButtonClick(e) {
-            const target = e.target.id;
-            pokemonNames.push({target});
-          }
-        
-          handleButtonClick();
-          console.log(pokemonNames);
-        
-        
+
         const fetchPokemonData = async () => {
             try {
                 setLoading(true);
@@ -35,7 +27,7 @@ export default function Details() {
 
                 // Set the state with the fetched data
                 setPokemon(responses);
-                console.log(pokemon);
+                // console.log(pokemon);
             } catch (err) {
                 setError(err);
                 console.log(err);
@@ -46,46 +38,49 @@ export default function Details() {
         fetchPokemonData();
     }, []);
 
-    pokemon.map((items, index ) => {
-        return (
-            <View key={index}>
-                <Text>{items.abilities}</Text>
-            </View>
-        )
-
-    })
-
-    const pokemonNames = [
-        {key: '133'}, {key: '25'}, {key: '1'}];
+    const handleDetailsClick = (pokemon) => {
+        setSelectedPokemon(pokemon);
+    }
 
     return (
         <View style={{ flex: 1, flexGrow: 1 }}>
             <Text style={styles.paragraph}>View details below!</Text>
             <Button title="Go back home" color="#38a0bd" onPress={() => navigation.goBack()} />
 
-            <View style={{ flex: 1, flexGrow: 1, marginBottom: 10 }}>
-                {/* Card Component code from react native elements 
+            {/* Card Component code from react native elements 
           https://reactnativeelements.com/docs/components/card */}
 
-                <FlatList
-                    data={pokemon}
-                    
-                    keyExtractor={(item) => item.name}
-                    renderItem={({ item }) => (
-                        <Card>
-                            <Card.Title>{item.name}</Card.Title>
+            <FlatList
+                data={pokemon}
+                keyExtractor={(item) => item.name}
+                renderItem={({ item }) => (
+                    <Card>
+                        <Card.Title>{item.name}</Card.Title>
 
-                            <Text style={styles.card}>Height: {item.height}</Text>
-                            <Text style={styles.card}>Weight: {item.weight}</Text>
-                            <Text style={styles.card}>Base experience: {item.base_experience}</Text>
+                        <Text style={styles.card}>Height: {item.height}</Text>
+                        <Text style={styles.card}>Weight: {item.weight}</Text>
+                        <Text style={styles.card}>Base experience: {item.base_experience}</Text>
+                        <Button title="Details" onPress={() => handleDetailsClick(item)} />
+                    </Card>
+                )}
+            />
 
-                        </Card>
-                    )}
-                />
-
-
-            </View>
-
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={selectedPokemon !== null}
+                onRequestClose={() => {
+                    selectedPokemon(null);
+                }}>
+                {selectedPokemon && (
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Name: {selectedPokemon.name}</Text>
+                            <Button title="Close" onPress={() => setSelectedPokemon(null)} />
+                        </View>
+                    </View>
+                )}
+            </Modal>
             <Footer />
         </View>
     );
