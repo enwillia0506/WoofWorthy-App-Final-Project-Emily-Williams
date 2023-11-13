@@ -14,7 +14,7 @@ export default function FindPoke() {
 
   //holds api data
   const [pokemon, setPokemon] = useState([]);
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,14 +29,14 @@ export default function FindPoke() {
         const responses = await Promise.all(
           pokemonNames.map(name => fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then(res => res.json()))
         );
-       
+
         // Set the state with the fetched data from api
         setPokemon(responses);
-      //catch any errors
+        //catch any errors
       } catch (err) {
         setError(err);
         console.log(err);
-      //function is done so set loading to false
+        //function is done so set loading to false
       } finally {
         setLoading(false);
       }
@@ -65,7 +65,7 @@ export default function FindPoke() {
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
             <Card>
-              <Card.Title style={{fontWeight: 'bold', fontSize: 22}}>{item.name}</Card.Title>
+              <Card.Title style={{ fontWeight: 'bold', fontSize: 22 }}>{item.name}</Card.Title>
               <Card.Image
                 style={{ height: 300, resizeMode: 'stretch' }}
                 source={{
@@ -93,15 +93,15 @@ export default function FindPoke() {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
 
-                <Text style={styles.boldText}>Name: {selectedPokemon.name}</Text>
-                <Text style={styles.modalText}>Type: {selectedPokemon.types[0].type.name}</Text>
-                <Text style={styles.modalText}>Height: {selectedPokemon.height}</Text>
-                <Text style={styles.modalText}>Weight: {selectedPokemon.weight}</Text>
-                <Text style={styles.modalText}>Base experience: {selectedPokemon.base_experience}</Text>
-                
-                <Text style={styles.modalText}>HP: {selectedPokemon.stats[0].base_stat}</Text>
-                
-                <Button title="Close" color="#38a0bd" onPress={() => setSelectedPokemon(null)} />
+              <Text style={styles.boldText}>Name: {selectedPokemon.name}</Text>
+              <Text style={styles.modalText}>Type: {selectedPokemon.types[0].type.name}</Text>
+              <Text style={styles.modalText}>Height: {selectedPokemon.height}</Text>
+              <Text style={styles.modalText}>Weight: {selectedPokemon.weight}</Text>
+              <Text style={styles.modalText}>Base experience: {selectedPokemon.base_experience}</Text>
+
+              <Text style={styles.modalText}>HP: {selectedPokemon.stats[0].base_stat}</Text>
+
+              <Button title="Close" color="#38a0bd" onPress={() => setSelectedPokemon(null)} />
             </View>
           </View>
         )}

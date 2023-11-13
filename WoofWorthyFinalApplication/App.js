@@ -20,7 +20,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
           <Stack.Screen name="Pokemon" component={FindPoke} options={{ headerTitle: (props) => <HeaderLogo {...props} /> }} />
-          </Stack.Navigator>
+        </Stack.Navigator>
       </NavigationContainer>
     </View>
   )
@@ -32,22 +32,22 @@ function HomeScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-        <Text style={styles.header}>The world is your pokemon</Text>
-        <Text style={styles.subHeader}>Find your pokemon stats quick and easy in one central location!</Text>
+      <Text style={styles.header}>The world is your pokemon</Text>
+      <Text style={styles.subHeader}>Find your pokemon stats quick and easy in one central location!</Text>
 
-        <Image source={require('./images/eevee-banner.jpg')}
-          style={{ width: '100%' }} />
+      <Image source={require('./images/eevee-banner.jpg')}
+        style={{ width: '100%' }} />
 
-        <Text style={styles.paragraph}>Click here to enter the catalog of Pokemon and view their stats!</Text>
+      <Text style={styles.paragraph}>Click here to enter the catalog of Pokemon and view their stats!</Text>
 
-        <Button
-          title="View all Pokemon"
-          color= '#38a0bd'
-          onPress={() => {
-            nav.navigate('Pokemon');
-          }}
-        />
-        <Footer />
+      <Button
+        title="View all Pokemon"
+        color='#38a0bd'
+        onPress={() => {
+          nav.navigate('Pokemon');
+        }}
+      />
+      <Footer />
     </View>
   );
 };
