@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-
-//Footer with logo, copyright info
+//Footer component
+//Footer with logo, copyright info 
 export default function Footer() {
   return (
     <View style={styles.footer}>
@@ -18,13 +18,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     padding: 13,
     paddingLeft: 15,
-    backgroundColor: '#fdeec5',
-
+    backgroundColor: '#fdeec5'
   },
   footerText: {
     fontSize: 15,
     flex: 1,
     alignSelf: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   }
 });

@@ -1,8 +1,8 @@
-import 'react-native-gesture-handler';
+import 'react-native-gesture-handler'; //stack navigation dependency
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native'; //react navigation
+import { createStackNavigator } from '@react-navigation/stack'; //stack navigation
 
 //my imports
 import Footer from './footer';

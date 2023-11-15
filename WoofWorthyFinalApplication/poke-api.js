@@ -5,6 +5,8 @@ import { Card } from '@rneui/themed';
 
 //my imports
 import Footer from './footer';
+//pokemon cards page
+//api data from https://pokeapi.co/
 
 export default function FindPoke() {
   const navigation = useNavigation();
